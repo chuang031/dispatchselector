@@ -1,21 +1,44 @@
 import './SingleArticle.css';
+import { useParams } from 'react-router-dom'
+
+import {useSelector} from 'react-redux'
 
 const SingleArticle = () => {
+  const {id} = useParams()
+  // const chosenArticle = articles.find((el)=> el.id === id)
+  
+  // const articles = useSelector((store)=> store.articleState.entries)
+  // const chosenArticle= articles.find((el)=>el.id === id)
+  
+  const chosenArticle = useSelector((store)=>{
+    const articles = store.articleState.entries
+    return articles.find((el)=>el.id === id)
+  })
+  
+  
   return (
     <div className='singleArticle'>
-      <h1>Why Am I At Home</h1>
+      <h1>{chosenArticle?.title}</h1>
       <img
-        src='https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Frobcain%2Ffiles%2F2017%2F10%2FKevin-Home-Alone.jpg'
-        alt='home'
+        src={chosenArticle?.imageUrl}
+        alt={chosenArticle?.title}
       />
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex esse
-        laboriosam officia accusantium veritatis fugiat exercitationem vero
-        autem nihil aliquid ullam recusandae, quis odit odio voluptates
-        explicabo nobis! Consequuntur, aliquam?
+      {chosenArticle?.body}
       </p>
     </div>
   );
+  
+    //   <div className='singleArticle'>
+    //   <h1>{chosenArticle?.title}</h1>
+    //   <img
+    //     src={chosenArticle?.imageUrl}
+    //     alt={chosenArticle?.title}
+    //   />
+    //   <p>
+    //   {chosenArticle?.body}
+    //   </p>
+    // </div>
 };
 
 export default SingleArticle;
